@@ -1,0 +1,298 @@
+
+        /* Define CSS variables for colors in both modes */
+        :root {
+            /* Light Mode Variables */
+            --body-bg: linear-gradient(135deg, #cce7f0 0%, #99d9f4 100%); /* Slightly darker light mode gradient */
+            --body-color: #1a202c; /* Black text for light mode */
+            --section-bg: #ffffff;
+            --section-border-left: #4299e1;
+            --heading-color: #2b6cb0;
+            --heading-border-bottom: #4299e1;
+            --heading-icon-color: #4299e1;
+            --skill-badge-bg: #a0aec0;
+            --skill-badge-color: #2d3748;
+            --skill-badge-hover-bg: #718096;
+            --skill-badge-hover-color: #ffffff;
+            --skill-name-color: #4a5568;
+            --skill-bar-container-bg: #e2e8f0;
+            --skill-bar-color: #4299e1;
+            --project-card-bg: #ebf8ff;
+            --project-card-border: #bee3f8;
+            --project-card-title-color: #2c5282;
+            --project-tech-badge-bg: #63b3ed;
+            --project-tech-badge-color: #ffffff;
+            --link-color: #3182ce; /* Standard blue link color in light mode */
+            --link-hover-color: #2b6cb0; /* Darker blue on hover in light mode */
+            --footer-bg: #1a202c; /* Dark gray */
+            --footer-color: #ffffff;
+        }
+
+        /* Dark Mode Variables */
+        .dark-mode {
+            --body-bg: linear-gradient(135deg, #0a101c 0%, #1a202c 100%); /* Much darker gradient for dark mode */
+            --body-color: #f7fafc; /* White text for dark mode */
+            --section-bg: #2d3748; /* Darker section background */
+            --section-border-left: #63b3ed; /* Lighter accent border */
+            --heading-color: #63b3ed; /* Lighter blue for headings */
+            --heading-border-bottom: #63b3ed; /* Matching lighter accent */
+            --heading-icon-color: #63b3ed; /* Lighter icon color */
+            --skill-badge-bg: #4a5568; /* Darker gray badge */
+            --skill-badge-color: #e2e8f0; /* Light text */
+            --skill-badge-hover-bg: #718096;
+            --skill-badge-hover-color: #ffffff;
+            --skill-name-color: #e2e8f0; /* Light skill name */
+            --skill-bar-container-bg: #4a5568; /* Darker bar background */
+            --skill-bar-color: #63b3ed; /* Lighter blue bar */
+            --project-card-bg: #4a5568; /* Darker project card background */
+            --project-card-border: #63b3ed; /* Lighter border */
+            --project-card-title-color: #ffffff; /* White title */
+            --project-tech-badge-bg: #4299e1; /* Darker blue badge */
+            --project-tech-badge-color: #ffffff;
+            --link-color: #a0aec0; /* Dark gray link color in dark mode */
+            --link-hover-color: #cbd5e0; /* Lighter gray on hover in dark mode */
+            --footer-bg: #000000; /* Black footer */
+            --footer-color: #a0aec0; /* Lighter gray text */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--body-bg);
+            color: var(--body-color); /* Main text color from variable */
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            transition: background 0.5s ease, color 0.5s ease; /* Smooth mode transition */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem; /* Increased padding for more space on sides */
+        }
+        .section {
+            background-color: var(--section-bg);
+            /* Increased horizontal padding to 6rem */
+            padding: 4rem 6rem;
+            margin-bottom: 5rem; /* Increased bottom margin for more vertical space */
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid var(--section-border-left);
+            padding-top: 6rem;
+            margin-top: -4rem;
+             /* Initial state for JS animation */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: background-color 0.5s ease, border-color 0.5s ease; /* Keep color transitions */
+        }
+
+         .section h2 {
+            color: var(--heading-color);
+            border-bottom: 3px solid var(--heading-border-bottom);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+         }
+         .section h2 i {
+             margin-right: 1.2rem;
+             color: var(--heading-icon-color);
+             font-size: 2rem;
+         }
+
+        .skill-badge {
+            display: inline-block;
+            background-color: var(--skill-badge-bg);
+            color: var(--skill-badge-color);
+            padding: 0.6rem 1.4rem;
+            margin: 0.5rem;
+            border-radius: 9999px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Added mode transition */
+        }
+        .skill-badge:hover {
+            background-color: var(--skill-badge-hover-bg);
+            color: var(--skill-badge-hover-color);
+        }
+
+        /* Skill Bar Styling */
+        .skill-item {
+            margin-bottom: 2.5rem;
+             /* Initial state for JS animation */
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Keep animation transition */
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--skill-name-color);
+            font-size: 1.2rem;
+        }
+        .skill-bar-container {
+            background-color: var(--skill-bar-container-bg);
+            height: 18px;
+            border-radius: 9px;
+            overflow: hidden;
+        }
+        .skill-bar {
+            height: 100%;
+            background-color: var(--skill-bar-color);
+            width: 0;
+            transition: width 1.5s ease-out;
+            border-radius: 9px;
+        }
+
+        .project-card {
+            background-color: var(--project-card-bg);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--project-card-border);
+             /* Initial state for JS animation */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: background-color 0.5s ease, border-color 0.5s ease; /* Keep color transitions */
+        }
+
+         .project-card h3 {
+            color: var(--project-card-title-color);
+         }
+        .project-tech-badge {
+             display: inline-block;
+            background-color: var(--project-tech-badge-bg);
+            color: var(--project-tech-badge-color);
+            padding: 0.5rem 1.2rem;
+            margin: 0.4rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.6rem;
+            transition: transform 0.3s ease;
+        }
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        a {
+            color: var(--link-color); /* Link color from variable */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--link-hover-color); /* Link hover color from variable */
+        }
+
+        /* Navigation Bar Styling */
+        .navbar {
+            background-color: rgba(49, 130, 206, 0.95);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(66, 153, 225, 0.8);
+            text-decoration: none;
+        }
+
+        /* Mobile Menu Button */
+        .menu-button {
+            display: none;
+        }
+
+        /* Mode Toggle Button */
+        .mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+         .mode-toggle:hover {
+             transform: rotate(15deg);
+         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem; /* Reduced padding on smaller screens */
+            }
+            .section {
+                padding: 2rem 1.5rem; /* Adjusted padding for mobile sections */
+                margin-bottom: 2rem;
+                padding-top: 8rem;
+                margin-top: -6rem;
+            }
+            .navbar .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+            }
+            .navbar-links.active {
+                display: flex;
+            }
+            .menu-button {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 1rem;
+                align-self: flex-end;
+            }
+             .mode-toggle {
+                 margin-left: 0;
+                 padding: 1rem;
+                 align-self: flex-end;
+             }
+             .navbar .container {
+                 flex-direction: row;
+                 justify-content: space-between;
+                 align-items: center;
+             }
+             .navbar-buttons {
+                 display: flex;
+                 align-items: center;
+             }
+             .navbar-links.active {
+                 order: 1;
+             }
+        }
+
+         /* Footer Styling */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 5rem;
+            transition: background-color 0.5s ease, color 0.5s ease; /* Added mode transition */
+        }
+
+        /* No CSS Keyframe animations used for scroll-triggered animations anymore */
+
+    
