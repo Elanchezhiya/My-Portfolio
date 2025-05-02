@@ -1,4 +1,3 @@
-
         // JavaScript for smooth scrolling, mobile menu toggle, mode toggle, and animations
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -83,16 +82,18 @@
                                 target.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.5s ease, border-color 0.5s ease'; // Re-apply transitions
                             }
 
-                            // Skill Items: Slide in from left
+                            // Skill Items: Slide in from left and animate bar
                             if (target.classList.contains('skill-item')) {
                                 target.style.opacity = '1';
                                 target.style.transform = 'translateX(0)';
                                 target.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out'; // Re-apply transitions
+
                                 // Trigger skill bar animation
                                 const skillBar = target.querySelector('.skill-bar');
                                 if (skillBar) {
                                     const percent = skillBar.getAttribute('data-percent');
                                     skillBar.style.width = percent + '%';
+                                    skillBar.style.transition = 'width 1.5s ease-out'; // Re-apply transition
                                 }
                             }
 
@@ -104,35 +105,38 @@
                                 target.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.5s ease, border-color 0.5s ease'; // Re-apply transitions
                             }
 
+
                         }, delay);
 
                          // Unobserve elements that should only animate once
-                        if (target.classList.contains('section') || target.classList.contains('project-card')) {
+                        if (target.classList.contains('section') || target.classList.contains('project-card') || target.classList.contains('skill-item')) {
                              observer.unobserve(entry.target);
                         }
-                         // Skill items can be re-observed if you want the bar animation to potentially replay
+                         // Skill bars are animated when their parent skill-item is in view,
+                         // so we observe the skill-item and trigger the bar animation from there.
                     } else {
                         //Optional: Reset styles when not intersecting (if you want replay)
-                        const target = entry.target;
-                        if (target.classList.contains('section')) {
-                            target.style.opacity = '0';
-                            target.style.transform = 'translateY(30px)';
-                             target.style.transition = 'none'; // Remove transition for instant reset
-                        }
-                        if (target.classList.contains('skill-item')) {
-                            target.style.opacity = '0';
-                            target.style.transform = 'translateX(-30px)';
-                             target.style.transition = 'none';
-                            const skillBar = target.querySelector('.skill-bar');
-                             if (skillBar) {
-                                 skillBar.style.width = '0%';
-                             }
-                        }
-                        if (target.classList.contains('project-card')) {
-                            target.style.opacity = '0';
-                            target.style.transform = 'translateY(20px)'; // Or scale(0.8)
-                             target.style.transition = 'none';
-                        }
+                        // const target = entry.target;
+                        // if (target.classList.contains('section')) {
+                        //     target.style.opacity = '0';
+                        //     target.style.transform = 'translateY(30px)';
+                        //      target.style.transition = 'none'; // Remove transition for instant reset
+                        // }
+                        //  if (target.classList.contains('skill-item')) {
+                        //      target.style.opacity = '0';
+                        //      target.style.transform = 'translateX(-30px)';
+                        //       target.style.transition = 'none';
+                        //     const skillBar = target.querySelector('.skill-bar');
+                        //      if (skillBar) {
+                        //          skillBar.style.width = '0%';
+                        //          skillBar.style.transition = 'none';
+                        //      }
+                        //  }
+                        //  if (target.classList.contains('project-card')) {
+                        //      target.style.opacity = '0';
+                        //      target.style.transform = 'translateY(20px)'; // Or scale(0.8)
+                        //       target.style.transition = 'none';
+                        //  }
                     }
                 });
             }, {
@@ -145,12 +149,13 @@
                 section.style.transform = 'translateY(30px)';
                 animateOnScrollObserver.observe(section);
             });
-            skillItems.forEach(item => {
+             skillItems.forEach(item => {
                  item.style.opacity = '0';
                  item.style.transform = 'translateX(-30px)';
                  item.style.transition = 'none'; // Remove initial transition
                  animateOnScrollObserver.observe(item);
-            });
+             });
+
              projectCards.forEach(card => {
                  card.style.opacity = '0';
                  card.style.transform = 'translateY(20px)'; // Initial state for bounce
@@ -160,4 +165,3 @@
 
 
         });
-    
