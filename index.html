@@ -12,7 +12,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
   <link href="style.css" rel="stylesheet"/>
  </head>
-<body class="antialiased dark-mode">
+<body class="antialiased dark-mode" id="body">
     <div id="top-progress"></div>
     <nav class="navbar">
         <div class="container flex items-center justify-between">
@@ -103,9 +103,12 @@
         <a href="#contact" title="Contact"></a>
     </div>
 
-    <div class="container mt-10">
+    <!-- Cursor Trail Canvas -->
+    <canvas id="cursor-trail" class="fixed inset-0 pointer-events-none" style="z-index:1100"></canvas>
 
-        <section class="section" id="profile">
+    <div class="container mt-10 snap-wrapper">
+
+        <section class="section snap-section" id="profile">
             <h2 class="text-3xl font-bold"><i class="fas fa-user-tie"></i> Professional Summary & Career Goal</h2>
             <p>
                 Passionate Software Developer with <span class="font-semibold">3+ years</span> of experience building scalable web applications using <span class="font-semibold">Java, Spring Boot, ASP.NET Core, and C#</span>. Expertise in <span class="font-semibold">full-stack development, API design, and BI dashboards</span>. Strong problem-solving skills with a commitment to continuous learning.
@@ -120,7 +123,7 @@
              </div>
         </section>
 
-        <section class="section" id="skills">
+        <section class="section snap-section" id="skills">
             <h2 class="text-3xl font-bold"><i class="fas fa-code"></i> Technical Skills</h2>
 
             <div class="skill-item" data-delay="0.1s">
@@ -218,7 +221,7 @@
             </div>
         </section>
 
-        <section class="section" id="experience">
+        <section class="section snap-section" id="experience">
             <h2 class="text-3xl font-bold"><i class="fas fa-briefcase"></i> Work Experience</h2>
             <div class="mb-8">
                 <h3 class="text-2xl font-semibold">Syncfusion Software Private Limited</h3>
@@ -234,7 +237,7 @@
             </div>
         </section>
 
-        <section class="section" id="projects">
+        <section class="section snap-section" id="projects">
             <h2 class="text-3xl font-bold"><i class="fas fa-laptop-code"></i> Key Projects</h2>
 
             <div class="project-card" data-delay="0.1s">
@@ -325,7 +328,7 @@
 
              </section>
 
-        <section class="section" id="certifications">
+        <section class="section snap-section" id="certifications">
             <h2 class="text-3xl font-bold"><i class="fas fa-award"></i> Certifications & Achievements</h2>
             <ul class="list-disc list-inside mt-4 space-y-3">
                 <li><span class="font-semibold">Java Full Stack Development</span> (<a href="https://v2.zenclass.in/certificateDownload/1ivD06kwqr3WQu03" target="_blank" class="text-blue-700 dark-mode:text-blue-400 hover:underline">GUVI Certificate Link</a> | Oct 2024 - Feb 2025)</li>
@@ -334,7 +337,7 @@
             </ul>
         </section>
 
-         <section class="section" id="education">
+         <section class="section snap-section" id="education">
             <h2 class="text-3xl font-bold"><i class="fas fa-graduation-cap"></i> Education</h2>
             <ul class="list-disc list-inside mt-4 space-y-3">
                 <li><span class="font-semibold">B.E.</span> – Jeppiaar SRR Engineering College, Chennai (2020) – <span class="font-semibold">68%</span></li>
@@ -344,7 +347,7 @@
         </section>
 
 
-        <section class="section" id="contact">
+        <section class="section snap-section" id="contact">
             <h2 class="text-3xl font-bold"><i class="fas fa-envelope-open-text"></i> Contact</h2>
             <p class="text-lg">Feel free to reach out to me!</p>
             <div class="mt-5 text-lg space-y-3">

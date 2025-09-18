@@ -85,6 +85,14 @@
             transition: background-color 0.5s ease, border-color 0.5s ease; /* Keep color transitions */
         }
 
+        /* Immersive mode (optional) */
+        .immersive #top-progress { height: 4px; }
+        .immersive .navbar { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .immersive .section { min-height: 100vh; margin-bottom: 0; border-radius: 0; box-shadow: none; padding: 6rem 6rem; }
+        .immersive .container { max-width: 1200px; }
+        .immersive .snap-wrapper { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
+        .immersive .snap-section { scroll-snap-align: start; }
+
          .section h2 {
             color: var(--heading-color);
             border-bottom: 3px solid var(--heading-border-bottom);

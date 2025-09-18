@@ -11,6 +11,8 @@
             const moonIcon = modeToggle.querySelector('.fa-moon');
             const hero = document.getElementById('hero');
             const constellation = document.getElementById('constellation');
+            const body = document.getElementById('body');
+            const cursorTrail = document.getElementById('cursor-trail');
             const cp = document.getElementById('command-palette');
             const cpInput = document.getElementById('cp-input');
             const cpList = document.getElementById('cp-list');
@@ -188,6 +190,54 @@
                     });
                 });
             });
+
+            // --- Immersive mode toggles and helpers ---
+            function enableImmersive() { body.classList.add('immersive'); }
+            function disableImmersive() { body.classList.remove('immersive'); }
+            // Auto-enable immersive on large screens
+            if (window.innerWidth >= 1024) enableImmersive();
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) enableImmersive(); else disableImmersive();
+            });
+            // Keyboard next/prev section
+            const order = ['profile','skills','experience','projects','certifications','education','contact'];
+            function gotoByStep(step) {
+                const current = order.findIndex(id => document.getElementById(id).getBoundingClientRect().top <= 120 && document.getElementById(id).getBoundingClientRect().bottom >= 120);
+                const next = Math.min(order.length-1, Math.max(0, current + step));
+                document.getElementById(order[next]).scrollIntoView({ behavior: 'smooth' });
+            }
+            document.addEventListener('keydown', (e) => {
+                if (body.classList.contains('immersive')) {
+                    if (e.key === 'PageDown' || (e.key === 'ArrowDown' && e.shiftKey)) { e.preventDefault(); gotoByStep(1); }
+                    if (e.key === 'PageUp' || (e.key === 'ArrowUp' && e.shiftKey)) { e.preventDefault(); gotoByStep(-1); }
+                }
+            });
+
+            // --- Neon cursor trail ---
+            if (cursorTrail) {
+                const ctx = cursorTrail.getContext('2d');
+                function sizeTrail() { cursorTrail.width = window.innerWidth; cursorTrail.height = window.innerHeight; }
+                sizeTrail(); window.addEventListener('resize', sizeTrail);
+                const points = [];
+                document.addEventListener('mousemove', (e) => {
+                    points.push({ x: e.clientX, y: e.clientY, life: 1 });
+                });
+                function draw() {
+                    ctx.clearRect(0,0,cursorTrail.width,cursorTrail.height);
+                    for (let i = points.length - 1; i >= 0; i--) {
+                        const p = points[i];
+                        const r = 6 * p.life;
+                        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+                        grad.addColorStop(0, 'rgba(34,211,238,0.8)');
+                        grad.addColorStop(1, 'rgba(167,139,250,0)');
+                        ctx.fillStyle = grad;
+                        ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI*2); ctx.fill();
+                        p.life -= 0.02; if (p.life <= 0) points.splice(i,1);
+                    }
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            }
 
             // --- Smooth Scrolling for Navigation Links ---
             document.querySelectorAll('.navbar-links a').forEach(anchor => {
