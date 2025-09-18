@@ -5,7 +5,6 @@
             const navbarLinks = document.getElementById('navbar-links');
             const sections = document.querySelectorAll('.section');
             const skillItems = document.querySelectorAll('.skill-item');
-            const skillDetails = document.getElementById('skill-details');
             const projectCards = document.querySelectorAll('.project-card');
             const modeToggle = document.getElementById('mode-toggle');
             const sunIcon = modeToggle.querySelector('.fa-sun');
@@ -390,23 +389,6 @@
                  item.style.transform = 'translateX(-30px)';
                  item.style.transition = 'none'; // Remove initial transition
                  animateOnScrollObserver.observe(item);
-                 // Interactive skill hover and click
-                 const nameEl = item.querySelector('.skill-name');
-                 const bar = item.querySelector('.skill-bar');
-                 const skillName = nameEl ? nameEl.textContent.replace(/\s*\d+%/, '').trim() : 'Skill';
-                 const percent = bar ? bar.getAttribute('data-percent') : '0';
-                 const detailText = `${skillName} • Proficiency ${percent}%`;
-                 let pinned = false;
-                 item.addEventListener('mouseenter', () => {
-                     if (!pinned && skillDetails) skillDetails.textContent = detailText;
-                 });
-                 item.addEventListener('mouseleave', () => {
-                     if (!pinned && skillDetails) skillDetails.textContent = 'Hover a skill to see details. Click to pin.';
-                 });
-                 item.addEventListener('click', () => {
-                     pinned = !pinned;
-                     if (skillDetails) skillDetails.textContent = pinned ? `${detailText} (pinned)` : 'Hover a skill to see details. Click to pin.';
-                 });
              });
 
              projectCards.forEach(card => {

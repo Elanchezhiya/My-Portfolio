@@ -3,7 +3,6 @@
             /* Light Mode Variables: minimal with cyan/violet accents */
             --body-bg: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%);
             --body-color: #0f172a;
-            --navbar-height: 64px;
             --section-bg: #ffffff;
             --section-border-left: #06b6d4;
             --heading-color: #0ea5e9;
@@ -62,7 +61,6 @@
             line-height: 1.7;
             scroll-behavior: smooth;
             transition: background 0.5s ease, color 0.5s ease; /* Smooth mode transition */
-            padding-top: var(--navbar-height);
         }
         /* Parallax hero helpers */
         #hero { perspective: 1000px; }
@@ -150,11 +148,6 @@
              color: var(--skill-badge-color); /* Use badge color for percentage */
          }
 
-        /* Skill tooltip/details panel */
-        .skill-tooltip { position: absolute; background: #0b1220; color: #e5e7eb; border: 1px solid rgba(34,211,238,0.35); padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); z-index: 1500; display:none; }
-        .skill-tooltip.visible { display:block; }
-        #skill-details { position: sticky; top: calc(var(--navbar-height) + 12px); padding: 1rem; border: 1px solid var(--project-card-border); border-radius: 12px; background: var(--project-card-bg); margin-top: 1rem; }
-
         .skill-bar-container {
             background-color: var(--skill-bar-container-bg);
             height: 18px;
@@ -229,21 +222,14 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: var(--navbar-height);
-            z-index: 2200;
-            display: flex;
-            align-items: center;
+            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 -2px 0 0 #22d3ee;
         }
 
-        .navbar .container { display: flex; align-items: center; justify-content: space-between; padding-top: 0; padding-bottom: 0; }
-
         .navbar a {
             color: #ffffff;
-            padding: 0 1rem;
-            height: 100%;
-            display: flex;
-            align-items: center;
+            padding: 1rem 1.5rem;
+            display: block;
             transition: background-color 0.3s ease;
         }
 
