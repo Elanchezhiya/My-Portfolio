@@ -212,6 +212,39 @@
                 });
             });
 
+            // --- Scrollspy, dot nav, and progress bar ---
+            const dotNav = document.getElementById('dot-nav');
+            const topProgress = document.getElementById('top-progress');
+            const dotLinks = dotNav ? Array.from(dotNav.querySelectorAll('a')) : [];
+
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const pct = Math.max(0, Math.min(1, scrollTop / docHeight));
+                if (topProgress) topProgress.style.width = `${pct * 100}%`;
+            }
+            function updateActiveDot() {
+                let activeId = 'profile';
+                sections.forEach(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    if (rect.top <= 120 && rect.bottom >= 120) {
+                        activeId = sec.id;
+                    }
+                });
+                dotLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${activeId}`));
+            }
+            window.addEventListener('scroll', () => { updateProgress(); updateActiveDot(); });
+            updateProgress(); updateActiveDot();
+
+            if (dotNav) {
+                dotLinks.forEach(a => a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = a.getAttribute('href').substring(1);
+                    const el = document.getElementById(targetId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }));
+            }
+
             // --- Animation on Scroll using IntersectionObserver (JS controlled) ---
             const animateOnScrollObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
