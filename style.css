@@ -150,6 +150,11 @@
              color: var(--skill-badge-color); /* Use badge color for percentage */
          }
 
+        /* Skill tooltip/details panel */
+        .skill-tooltip { position: absolute; background: #0b1220; color: #e5e7eb; border: 1px solid rgba(34,211,238,0.35); padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(0,0,0,0.4); z-index: 1500; display:none; }
+        .skill-tooltip.visible { display:block; }
+        #skill-details { position: sticky; top: calc(var(--navbar-height) + 12px); padding: 1rem; border: 1px solid var(--project-card-border); border-radius: 12px; background: var(--project-card-bg); margin-top: 1rem; }
+
         .skill-bar-container {
             background-color: var(--skill-bar-container-bg);
             height: 18px;
