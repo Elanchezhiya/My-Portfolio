@@ -13,7 +13,6 @@
             const constellation = document.getElementById('constellation');
             const body = document.getElementById('body');
             const cursorTrail = document.getElementById('cursor-trail');
-            const sidePanel = document.getElementById('side-panel');
             const main = document.getElementById('main');
             const layout = document.getElementById('layout');
             const cp = document.getElementById('command-palette');
@@ -198,11 +197,7 @@
             function enableImmersive() { body.classList.add('immersive'); }
             function disableImmersive() { body.classList.remove('immersive'); }
             // View mode: Panel vs Immersive
-            function enablePanelView() {
-                body.classList.remove('immersive');
-                if (sidePanel) sidePanel.classList.remove('hidden');
-                if (layout) layout.classList.add('panel-view');
-            }
+            function enablePanelView() { body.classList.remove('immersive'); }
             function preferPanel() { return true; }
             // Default to panel view per request
             enablePanelView();
@@ -222,18 +217,7 @@
             });
 
             // Side panel active state sync
-            function updatePanelActive() {
-                if (!sidePanel) return;
-                const links = sidePanel.querySelectorAll('a');
-                let activeId = 'profile';
-                sections.forEach(sec => {
-                    const rect = sec.getBoundingClientRect();
-                    if (rect.top <= 120 && rect.bottom >= 120) activeId = sec.id;
-                });
-                links.forEach(a => a.classList.toggle('active', a.dataset.target === activeId));
-            }
-            window.addEventListener('scroll', updatePanelActive);
-            updatePanelActive();
+            // No side panel, keep existing scrollspy for dots
 
             // --- Neon cursor trail ---
             if (cursorTrail) {

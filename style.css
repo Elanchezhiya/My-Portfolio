@@ -93,13 +93,7 @@
         .immersive .snap-wrapper { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
         .immersive .snap-section { scroll-snap-align: start; }
 
-        /* Side panel layout (Panel View) */
-        .panel-view { display: grid; grid-template-columns: 280px 1fr; gap: 0; }
-        #side-panel { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; background: #0b1220; border-right: 1px solid #22d3ee; z-index: 1100; }
-        #side-panel .sp-header { padding: 1rem 1.25rem; font-weight: 600; color: #22d3ee; border-bottom: 1px solid #22d3ee; }
-        #side-panel .sp-list { list-style: none; margin: 0; padding: 0.5rem; }
-        #side-panel .sp-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; margin: 0.2rem 0; color: #e5e7eb; text-decoration: none; border-radius: 8px; }
-        #side-panel .sp-list a:hover, #side-panel .sp-list a.active { background: rgba(34,211,238,0.12); color: #22d3ee; }
+        /* Remove side panel layout - kept styles minimal */
 
          .section h2 {
             color: var(--heading-color);
