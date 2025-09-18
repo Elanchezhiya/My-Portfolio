@@ -9,6 +9,17 @@
             const modeToggle = document.getElementById('mode-toggle');
             const sunIcon = modeToggle.querySelector('.fa-sun');
             const moonIcon = modeToggle.querySelector('.fa-moon');
+            const hero = document.getElementById('hero');
+            const constellation = document.getElementById('constellation');
+            const cp = document.getElementById('command-palette');
+            const cpInput = document.getElementById('cp-input');
+            const cpList = document.getElementById('cp-list');
+            const storyboard = document.getElementById('storyboard');
+            const sbClose = document.getElementById('sb-close');
+            const sbTitle = document.getElementById('sb-title');
+            const sbProblem = document.getElementById('sb-problem');
+            const sbApproach = document.getElementById('sb-approach');
+            const sbResult = document.getElementById('sb-result');
 
             // --- Dark/Light Mode Toggle ---
             const currentMode = localStorage.getItem('theme') || 'dark'; // Default to dark
@@ -41,6 +52,141 @@
             // --- Mobile Menu Toggle ---
             menuButton.addEventListener('click', () => {
                 navbarLinks.classList.toggle('active');
+            });
+
+            // --- Parallax hero tilt ---
+            if (hero) {
+                hero.addEventListener('mousemove', (e) => {
+                    const rect = hero.getBoundingClientRect();
+                    const offsetX = (e.clientX - rect.left) / rect.width - 0.5;
+                    const offsetY = (e.clientY - rect.top) / rect.height - 0.5;
+                    const tiltX = offsetY * -6;
+                    const tiltY = offsetX * 6;
+                    hero.querySelector('.container').style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                });
+                hero.addEventListener('mouseleave', () => {
+                    hero.querySelector('.container').style.transform = 'rotateX(0) rotateY(0)';
+                });
+            }
+
+            // --- Constellation background ---
+            if (constellation) {
+                const ctx = constellation.getContext('2d');
+                const stars = [];
+                const STAR_COUNT = 100;
+                const MAX_DIST = 120;
+                function resize() {
+                    constellation.width = hero.clientWidth;
+                    constellation.height = hero.clientHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+                for (let i = 0; i < STAR_COUNT; i++) {
+                    stars.push({
+                        x: Math.random() * constellation.width,
+                        y: Math.random() * constellation.height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        r: Math.random() * 1.8 + 0.4
+                    });
+                }
+                function step() {
+                    ctx.clearRect(0, 0, constellation.width, constellation.height);
+                    // move and draw stars
+                    for (const s of stars) {
+                        s.x += s.vx; s.y += s.vy;
+                        if (s.x < 0 || s.x > constellation.width) s.vx *= -1;
+                        if (s.y < 0 || s.y > constellation.height) s.vy *= -1;
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(34,211,238,0.8)';
+                        ctx.fill();
+                    }
+                    // connect near stars
+                    for (let i = 0; i < stars.length; i++) {
+                        for (let j = i + 1; j < stars.length; j++) {
+                            const dx = stars[i].x - stars[j].x;
+                            const dy = stars[i].y - stars[j].y;
+                            const d = Math.hypot(dx, dy);
+                            if (d < MAX_DIST) {
+                                ctx.strokeStyle = `rgba(167,139,250,${1 - d / MAX_DIST})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(stars[i].x, stars[i].y);
+                                ctx.lineTo(stars[j].x, stars[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(step);
+                }
+                step();
+            }
+
+            // --- Command Palette ---
+            const paletteItems = [
+                { label: 'Go to Profile', action: () => document.getElementById('profile').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Skills', action: () => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Experience', action: () => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Projects', action: () => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Certifications', action: () => document.getElementById('certifications').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Education', action: () => document.getElementById('education').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Go to Contact', action: () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }) },
+                { label: 'Toggle Theme', action: () => modeToggle.click() }
+            ];
+
+            function openPalette() {
+                cp.classList.add('active');
+                cpInput.value = '';
+                renderPalette('');
+                setTimeout(() => cpInput.focus(), 0);
+            }
+            function closePalette() { cp.classList.remove('active'); }
+            function renderPalette(query) {
+                const q = query.toLowerCase();
+                cpList.innerHTML = '';
+                paletteItems.filter(i => i.label.toLowerCase().includes(q)).forEach(i => {
+                    const li = document.createElement('li');
+                    li.className = 'px-4 py-3 hover:bg-[var(--project-card-bg)] cursor-pointer flex items-center';
+                    li.textContent = i.label;
+                    li.addEventListener('click', () => { i.action(); closePalette(); });
+                    cpList.appendChild(li);
+                });
+            }
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || e.key === '/') {
+                    e.preventDefault();
+                    openPalette();
+                } else if (e.key === 'Escape') {
+                    closePalette();
+                }
+            });
+            if (cpInput) {
+                cpInput.addEventListener('input', (e) => renderPalette(e.target.value));
+            }
+
+            // --- Storyboard slide-over ---
+            function openStoryboard(data) {
+                sbTitle.textContent = data.title;
+                sbProblem.textContent = data.problem;
+                sbApproach.innerHTML = data.approach;
+                sbResult.innerHTML = data.result;
+                storyboard.classList.add('active');
+            }
+            function closeStoryboard() { storyboard.classList.remove('active'); }
+            if (sbClose) sbClose.addEventListener('click', closeStoryboard);
+            // Attach open handlers to project cards (first two as example)
+            projectCards.forEach((card, idx) => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const title = card.querySelector('h3')?.textContent || `Project ${idx + 1}`;
+                    openStoryboard({
+                        title,
+                        problem: 'What was the challenge? Briefly describe the user or business need and constraints.',
+                        approach: '<ul><li>Outlined architecture and chose the stack.</li><li>Implemented core modules with tests.</li><li>Optimized performance and DX.</li></ul>',
+                        result: '<ul><li>Delivered features on time.</li><li>Improved performance and reliability.</li><li>Positive user feedback and metrics.</li></ul>'
+                    });
+                });
             });
 
             // --- Smooth Scrolling for Navigation Links ---

@@ -62,6 +62,9 @@
             scroll-behavior: smooth;
             transition: background 0.5s ease, color 0.5s ease; /* Smooth mode transition */
         }
+        /* Parallax hero helpers */
+        #hero { perspective: 1000px; }
+        #hero .container { transform-style: preserve-3d; }
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -224,6 +227,14 @@
             background-color: rgba(34, 211, 238, 0.12);
             text-decoration: none;
         }
+
+        /* Command palette */
+        #command-palette { display: none; }
+        #command-palette.active { display: flex; }
+
+        /* Storyboard */
+        #storyboard { display: none; }
+        #storyboard.active { display: block; }
 
         /* Mobile Menu Button */
         .menu-button {
