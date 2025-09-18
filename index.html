@@ -106,7 +106,21 @@
     <!-- Cursor Trail Canvas -->
     <canvas id="cursor-trail" class="fixed inset-0 pointer-events-none" style="z-index:1100"></canvas>
 
-    <div class="container mt-10 snap-wrapper">
+    <!-- Side Navigation Panel (hidden by default; shown in panel view) -->
+    <aside id="side-panel" class="hidden">
+        <div class="sp-header">Navigate</div>
+        <ul class="sp-list">
+            <li><a href="#profile" data-target="profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#skills" data-target="skills"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="#experience" data-target="experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+            <li><a href="#projects" data-target="projects"><i class="fas fa-laptop-code"></i> Projects</a></li>
+            <li><a href="#certifications" data-target="certifications"><i class="fas fa-award"></i> Certifications</a></li>
+            <li><a href="#education" data-target="education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+            <li><a href="#contact" data-target="contact"><i class="fas fa-envelope-open-text"></i> Contact</a></li>
+        </ul>
+    </aside>
+
+    <div class="container mt-10 snap-wrapper" id="main">
 
         <section class="section snap-section" id="profile">
             <h2 class="text-3xl font-bold"><i class="fas fa-user-tie"></i> Professional Summary & Career Goal</h2>

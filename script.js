@@ -13,6 +13,8 @@
             const constellation = document.getElementById('constellation');
             const body = document.getElementById('body');
             const cursorTrail = document.getElementById('cursor-trail');
+            const sidePanel = document.getElementById('side-panel');
+            const main = document.getElementById('main');
             const cp = document.getElementById('command-palette');
             const cpInput = document.getElementById('cp-input');
             const cpList = document.getElementById('cp-list');
@@ -194,11 +196,16 @@
             // --- Immersive mode toggles and helpers ---
             function enableImmersive() { body.classList.add('immersive'); }
             function disableImmersive() { body.classList.remove('immersive'); }
-            // Auto-enable immersive on large screens
-            if (window.innerWidth >= 1024) enableImmersive();
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 1024) enableImmersive(); else disableImmersive();
-            });
+            // View mode: Panel vs Immersive
+            function enablePanelView() {
+                body.classList.remove('immersive');
+                if (sidePanel) sidePanel.classList.remove('hidden');
+                if (main) main.classList.add('panel-view');
+            }
+            function preferPanel() { return true; }
+            // Default to panel view per request
+            enablePanelView();
+            window.addEventListener('resize', () => { enablePanelView(); });
             // Keyboard next/prev section
             const order = ['profile','skills','experience','projects','certifications','education','contact'];
             function gotoByStep(step) {
@@ -212,6 +219,20 @@
                     if (e.key === 'PageUp' || (e.key === 'ArrowUp' && e.shiftKey)) { e.preventDefault(); gotoByStep(-1); }
                 }
             });
+
+            // Side panel active state sync
+            function updatePanelActive() {
+                if (!sidePanel) return;
+                const links = sidePanel.querySelectorAll('a');
+                let activeId = 'profile';
+                sections.forEach(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    if (rect.top <= 120 && rect.bottom >= 120) activeId = sec.id;
+                });
+                links.forEach(a => a.classList.toggle('active', a.dataset.target === activeId));
+            }
+            window.addEventListener('scroll', updatePanelActive);
+            updatePanelActive();
 
             // --- Neon cursor trail ---
             if (cursorTrail) {
