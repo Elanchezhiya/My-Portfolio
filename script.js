@@ -15,6 +15,7 @@
             const cursorTrail = document.getElementById('cursor-trail');
             const sidePanel = document.getElementById('side-panel');
             const main = document.getElementById('main');
+            const layout = document.getElementById('layout');
             const cp = document.getElementById('command-palette');
             const cpInput = document.getElementById('cp-input');
             const cpList = document.getElementById('cp-list');
@@ -200,7 +201,7 @@
             function enablePanelView() {
                 body.classList.remove('immersive');
                 if (sidePanel) sidePanel.classList.remove('hidden');
-                if (main) main.classList.add('panel-view');
+                if (layout) layout.classList.add('panel-view');
             }
             function preferPanel() { return true; }
             // Default to panel view per request
