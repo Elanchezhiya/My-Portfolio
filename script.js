@@ -1,4 +1,4 @@
-        // JavaScript for smooth scrolling, mobile menu toggle, mode toggle, and animations
+// JavaScript for smooth scrolling, mobile menu toggle, mode toggle, and animations
 
         document.addEventListener('DOMContentLoaded', () => {
             const menuButton = document.getElementById('menu-button');
@@ -52,11 +52,6 @@
                 }
             });
 
-
-            // --- Mobile Menu Toggle ---
-            menuButton.addEventListener('click', () => {
-                navbarLinks.classList.toggle('active');
-            });
 
             // --- Parallax hero tilt ---
             if (hero) {
@@ -314,7 +309,7 @@
                             if (target.classList.contains('section')) {
                                 target.style.opacity = '1';
                                 target.style.transform = 'translateY(0)';
-                                target.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.5s ease, border-color 0.5s ease'; // Re-apply transitions
+                                target.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out'; // Re-apply transitions
                             }
 
                             // Skill Items: Slide in from left and animate bar
@@ -337,7 +332,7 @@
                                 target.style.opacity = '1';
                                 // Simulate bounce effect by applying final transform directly
                                 target.style.transform = 'scale(1) translateY(0)';
-                                target.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.5s ease, border-color 0.5s ease'; // Re-apply transitions
+                                target.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out'; // Re-apply transitions
                             }
 
 
@@ -400,3 +395,20 @@
 
 
         });
+
+        // Hamburger menu toggle for mobile
+document.addEventListener('DOMContentLoaded', function() {
+  const menuBtn = document.getElementById('menu-button');
+  const navLinks = document.getElementById('navbar-links');
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', function() {
+      navLinks.classList.toggle('hidden');
+    });
+    // Optional: Hide menu when a link is clicked (for better UX)
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) navLinks.classList.add('hidden');
+      });
+    });
+  }
+});

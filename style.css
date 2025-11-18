@@ -1,4 +1,4 @@
-        /* Define CSS variables for colors in both modes */
+/* Define CSS variables for colors in both modes */
         :root {
             /* Light Mode Variables: minimal with cyan/violet accents */
             --body-bg: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%);
@@ -15,8 +15,8 @@
             --skill-name-color: #334155;
             --skill-bar-container-bg: #e2e8f0;
             --skill-bar-color: #06b6d4;
-            --project-card-bg: #f8fafc;
-            --project-card-border: #e2e8f0;
+            --project-card-bg: #ffffff;
+            --project-card-border: #ffffff;
             --project-card-title-color: #111827;
             --project-tech-badge-bg: #6366f1;
             --project-tech-badge-color: #ffffff;
@@ -172,7 +172,7 @@
              /* Initial state for JS animation */
             opacity: 0;
             transform: translateY(20px);
-            transition: background-color 0.5s ease, border-color 0.5s ease; /* Keep color transitions */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Keep color transitions */
         }
 
         .project-card:hover {
@@ -254,7 +254,7 @@
 
         /* Mobile Menu Button */
         .menu-button {
-            display: none;
+            display: block;
         }
 
         /* Mode Toggle Button */
@@ -274,56 +274,49 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 1rem; /* Reduced padding on smaller screens */
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                width: 100vw !important;
+                max-width: 100vw !important;
             }
             .section {
-                padding: 2rem 1.5rem; /* Adjusted padding for mobile sections */
-                margin-bottom: 2rem;
-                padding-top: 8rem;
-                margin-top: -6rem;
+                padding: 1.5rem 0.5rem !important;
+                margin-bottom: 6rem !important;
             }
-            .navbar .container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            h1, .text-5xl { font-size: 2rem !important; }
+            h2, .text-3xl, .text-2xl { font-size: 1.3rem !important; }
             .navbar-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
+                left: 0 !important;
+                width: 100vw !important;
+                padding: 1rem 0.5rem !important;
+                display: none; /* Hide by default on mobile */
             }
-            .navbar-links.active {
-                display: flex;
+            .project-card {
+                /* padding: 1rem !important; */
             }
-            .menu-button {
-                display: block;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.5rem;
-                cursor: pointer;
-                padding: 1rem;
-                align-self: flex-end;
+            .skill-name { font-size: 1rem !important; }
+            .skill-badge, .project-tech-badge {
+                font-size: 0.85rem !important;
+                padding: 0.4rem 1rem !important;
             }
-             .mode-toggle {
-                 margin-left: 0;
-                 padding: 1rem;
-                 align-self: flex-end;
-             }
-             .navbar .container {
-                 flex-direction: row;
-                 justify-content: space-between;
-                 align-items: center;
-             }
-             .navbar-buttons {
-                 display: flex;
-                 align-items: center;
-             }
-             .navbar-links.active {
-                 order: 1;
-             }
+            /* Make sure images are not cut off */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
         }
 
-         /* Footer Styling */
+        /* Fix navbar overlap on mobile */
+        body {
+          /* padding-top: 60px; */
+        }
+        @media (max-width: 768px) {
+          body {
+            /* padding-top: 80px; */
+          }
+        }
+
+        /* Footer Styling */
         footer {
             background: var(--footer-bg); /* Use gradient background */
             color: var(--footer-color);
